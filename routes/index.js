@@ -40,9 +40,9 @@ async function updateCode(body){
     //send email, new received
     console.log(`'${body.place}' ADDED`)
     status = "Added"
-    /*send_email( "Program ADDED",
+    send_email( "Program ADDED",
     `The program ${body.place} has been added\n${JSON.stringify(body)}`,
-    "petershotbox@gmail.com")*/
+    "petershotbox@gmail.com")
   }else if(status == "Back Up"){
     send_email( "Program BACK UP",
     `The program ${body.place} is back up\n${JSON.stringify(body)}`,
