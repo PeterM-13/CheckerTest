@@ -90,6 +90,6 @@ async function send_email(subject, message, to_address) {
 }
 
 
-setInterval(checkCode, 5000)//300000)
+setInterval(checkCode, 600000)
 
 export default router;
