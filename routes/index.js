@@ -23,12 +23,12 @@ async function updateCode(body){
   let status = ""
   for(let [i, code] of codes.entries()){
     if(code[0] == body.id && code[3]){
-      code[1] = "good";
-      code[3] = false
+      codes[i][1] = "good";
+      codes[i][3] = false
       status = "Back Up"
     }else if(code[0] == body.id){
-      code[1] = "good";
-      code[3] = false
+      codes[i][1] = "good";
+      codes[i][3] = false
       status = "Updated"
     }
     if(code[0] == body.id && code[2] != body.place){
@@ -44,6 +44,7 @@ async function updateCode(body){
     `The program ${body.place} has been added\n${JSON.stringify(body)}`,
     "petershotbox@gmail.com")
   }else if(status == "Back Up"){
+    console.log(`'${body.place}' BACK UP`)
     send_email( "Program BACK UP",
     `The program ${body.place} is back up\n${JSON.stringify(body)}`,
     "petershotbox@gmail.com")
