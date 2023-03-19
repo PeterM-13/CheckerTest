@@ -90,7 +90,8 @@ async function send_email(subject, message, to_address) {
   console.log(`Message sent: ${info.messageId}`);
 }
 
-
-setInterval(checkCode, 600000)
+checkCode()
+console.log("Server Started")
+setInterval(checkCode, 300000)
 
 export default router;
