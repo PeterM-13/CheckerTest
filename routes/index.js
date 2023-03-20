@@ -53,14 +53,15 @@ async function updateCode(body){
 }
 
 function checkCode(){
+  console.log("CHECKING")
   PrevCodes = codes;
   //console.log(PrevCodes)
   for(let i=0; i<codes.length; i++){
     if(codes[i][1] == "bad" && !codes[i][3]){
       console.log(`'${codes[i][2]}' STOPPED`)
       send_email( "Program STOPPED",
-    `The program ${codes[i][2]} has STOPPED!\n{id:${codes[i][0]}, status:bad, place:${codes[i][2]}}`,
-    "petershotbox@gmail.com")
+      `The program ${codes[i][2]} has STOPPED!\n{id:${codes[i][0]}, status:bad, place:${codes[i][2]}}`,
+      process.env.email)
       codes[i][3] = true
     }else{
       codes[i][1] = "bad";
@@ -90,8 +91,16 @@ async function send_email(subject, message, to_address) {
   console.log(`Message sent: ${info.messageId}`);
 }
 
-checkCode()
 console.log("Server Started")
-setInterval(checkCode, 300000)
+setInterval(checkCode, 300000) // 5 mins
 
 export default router;
+
+
+/* Updates front end
+for(let j=0; j<PrevCodes.length; j++){
+    if(PrevCodes[j][0] == req.body.id){
+      PrevCodes[j][1] = "good";
+    }
+  }
+*/
