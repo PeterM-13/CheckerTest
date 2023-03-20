@@ -42,12 +42,12 @@ async function updateCode(body){
     status = "Added"
     send_email( "Program ADDED",
     `The program ${body.place} has been added\n${JSON.stringify(body)}`,
-    "petershotbox@gmail.com")
+    process.env.email)
   }else if(status == "Back Up"){
     console.log(`'${body.place}' BACK UP`)
     send_email( "Program BACK UP",
     `The program ${body.place} is back up\n${JSON.stringify(body)}`,
-    "petershotbox@gmail.com")
+    process.env.email)
   }
   return status
 }
