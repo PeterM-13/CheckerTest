@@ -53,9 +53,9 @@ async function updateCode(body){
 }
 
 function checkCode(){
+  //PrevCodes = [...codes];
+  PrevCodes = cloneArray(codes)
   console.log("CHECKING: ", PrevCodes)
-  PrevCodes = [...codes];
-  //console.log(PrevCodes)
   for(let i=0; i<codes.length; i++){
     if(codes[i][1] == "bad" && !codes[i][3]){
       console.log(`'${codes[i][2]}' STOPPED`)
@@ -89,6 +89,12 @@ async function send_email(subject, message, to_address) {
 
   const info = await transporter.sendMail(mailOptions);
   console.log(`Message sent: ${info.messageId}`);
+}
+
+function cloneArray(arr) {
+  const newGrid = [...arr]
+  newGrid.forEach((row, rowIndex) => newGrid[rowIndex] = [...row])
+  return newGrid
 }
 
 console.log("Server Started")
