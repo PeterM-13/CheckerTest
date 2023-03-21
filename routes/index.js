@@ -54,7 +54,7 @@ async function updateCode(body){
 
 function checkCode(){
   console.log("CHECKING: ", PrevCodes)
-  PrevCodes = codes;
+  PrevCodes = [...codes];
   //console.log(PrevCodes)
   for(let i=0; i<codes.length; i++){
     if(codes[i][1] == "bad" && !codes[i][3]){
@@ -92,7 +92,7 @@ async function send_email(subject, message, to_address) {
 }
 
 console.log("Server Started")
-setInterval(checkCode, 600000) // 10 mins
+setInterval(checkCode, 300000) // 10 mins
 
 export default router;
 
