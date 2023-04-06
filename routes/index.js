@@ -22,17 +22,22 @@ router.post("/", async (req, res) => {
 async function updateCode(body){
   let status = ""
   for(let [i, code] of codes.entries()){
-    if(code[0] == body.id && code[3]){
+    if(code[0] == body.id){
+      if(code[3]){
+        status = "Back Up"
+        console.log(`'${body.place}' BACK UP`)
+        send_email( "Program BACK UP",
+        `The program ${body.place} is back up\n${JSON.stringify(body)}`,
+        process.env.email)
+      }else{
+        status = "Updated"
+      }
       codes[i][1] = "good";
       codes[i][3] = false
-      status = "Back Up"
-    }else if(code[0] == body.id){
-      codes[i][1] = "good";
-      codes[i][3] = false
-      status = "Updated"
-    }
-    if(code[0] == body.id && code[2] != body.place){
-      codes[i][2] = body.place;
+      if(code[2] != body.place){
+        codes[i][2] = body.place;
+      }
+      break;
     }
   }
   if(status == ""){
@@ -42,11 +47,6 @@ async function updateCode(body){
     status = "Added"
     send_email( "Program ADDED",
     `The program ${body.place} has been added\n${JSON.stringify(body)}`,
-    process.env.email)
-  }else if(status == "Back Up"){
-    console.log(`'${body.place}' BACK UP`)
-    send_email( "Program BACK UP",
-    `The program ${body.place} is back up\n${JSON.stringify(body)}`,
     process.env.email)
   }
   return status
@@ -98,7 +98,7 @@ function cloneArray(arr) {
 }
 
 console.log("Server Started")
-setInterval(checkCode, 300000) // 10 mins
+setInterval(checkCode, 1500000) // 10 mins
 
 export default router;
 
