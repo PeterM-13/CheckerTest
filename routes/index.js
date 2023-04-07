@@ -21,6 +21,7 @@ router.post("/", async (req, res) => {
 
 async function updateCode(body){
   let status = ""
+  print(`Reveived: ${body.place}`)
   for(let [i, code] of codes.entries()){
     if(code[0] == body.id){
       if(code[3]){
