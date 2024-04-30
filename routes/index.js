@@ -72,8 +72,8 @@ function checkCode(){
 
 async function send_email(subject, message, to_address) {
   const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
+    host: 'smtp.mailersend.net',
+    port: 587,
     secure: true,
     auth: {
       user: process.env.email,
