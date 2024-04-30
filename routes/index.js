@@ -85,8 +85,13 @@ async function send_email(subject, message) {
     text: message
   };
 
-  const info = await transporter.sendMail(mailOptions);
-  console.log(`Message sent: ${info.messageId}`);
+  console.log("About to send email to: ", process.env.emailDest, " From: ", process.env.email)
+  try {
+    const info = await transporter.sendMail(mailOptions);
+    console.log(`Message sent: ${info.messageId}`);
+  } catch (error) {
+    console.error("Error occurred while sending email:", error);
+  }
 }
 
 function cloneArray(arr) {
