@@ -71,11 +71,15 @@ async function send_email(subject, message) {
   const transporter = nodemailer.createTransport({
     host: 'smtp.mailersend.net',
     port: 587,
-    secure: true,
+    secure: false,
     auth: {
       user: process.env.email,
       pass: process.env.password
-    }
+    },
+    tls: {
+      rejectUnauthorized: false,
+      secureProtocol: 'TLSv1_2_method' // You can try TLSv1_2_method or TLSv1_3_method
+  }
   });
 
   const mailOptions = {
@@ -85,7 +89,7 @@ async function send_email(subject, message) {
     text: message
   };
 
-  console.log("About to send email to: ", process.env.emailDest, " From: ", process.env.email)
+  //console.log("About to send email to: ", process.env.emailDest, " From: ", process.env.email)
   try {
     const info = await transporter.sendMail(mailOptions);
     console.log(`Message sent: ${info.messageId}`);
