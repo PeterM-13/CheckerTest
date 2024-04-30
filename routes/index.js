@@ -83,7 +83,7 @@ async function send_email(subject, message) {
   });
 
   const mailOptions = {
-    from: process.env.email,
+    from: process.env.emailFrom,
     to: process.env.emailDest,
     subject: subject,
     text: message
