@@ -28,8 +28,7 @@ async function updateCode(body){
         status = "Back Up"
         console.log(`'${body.place}' BACK UP`)
         send_email( "Program BACK UP",
-        `The program ${body.place} is back up\n${JSON.stringify(body)}`,
-        process.env.email)
+        `The program ${body.place} is back up\n${JSON.stringify(body)}`)
       }else{
         status = "Updated"
       }
@@ -47,8 +46,7 @@ async function updateCode(body){
     console.log(`'${body.place}' ADDED`)
     status = "Added"
     send_email( "Program ADDED",
-    `The program ${body.place} has been added\n${JSON.stringify(body)}`,
-    process.env.email)
+    `The program ${body.place} has been added\n${JSON.stringify(body)}`)
   }
   return status
 }
@@ -61,8 +59,7 @@ function checkCode(){
     if(codes[i][1] == "bad" && !codes[i][3]){
       console.log(`'${codes[i][2]}' STOPPED`)
       send_email( "Program STOPPED",
-      `The program ${codes[i][2]} has STOPPED!\n{id:${codes[i][0]}, status:bad, place:${codes[i][2]}}`,
-      process.env.email)
+      `The program ${codes[i][2]} has STOPPED!\n{id:${codes[i][0]}, status:bad, place:${codes[i][2]}}`)
       codes[i][3] = true
     }else{
       codes[i][1] = "bad";
@@ -70,7 +67,7 @@ function checkCode(){
   }
 }
 
-async function send_email(subject, message, to_address) {
+async function send_email(subject, message) {
   const transporter = nodemailer.createTransport({
     host: 'smtp.mailersend.net',
     port: 587,
@@ -83,7 +80,7 @@ async function send_email(subject, message, to_address) {
 
   const mailOptions = {
     from: process.env.email,
-    to: to_address,
+    to: process.env.emailDest,
     subject: subject,
     text: message
   };
